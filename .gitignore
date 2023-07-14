@@ -25,3 +25,4 @@
 /config/master.key
 
 /vendor/crypt_shared/*
+.byebug_history
