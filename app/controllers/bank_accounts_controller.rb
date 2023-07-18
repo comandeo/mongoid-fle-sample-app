@@ -3,7 +3,7 @@ class BankAccountsController < ApplicationController
 
   # GET /bank_accounts or /bank_accounts.json
   def index
-    @bank_accounts = BankAccount.all
+    @bank_accounts = User.current_user.bank_accounts
   end
 
   # GET /bank_accounts/1 or /bank_accounts/1.json
@@ -21,11 +21,11 @@ class BankAccountsController < ApplicationController
 
   # POST /bank_accounts or /bank_accounts.json
   def create
-    @bank_account = BankAccount.new(bank_account_params)
+    @bank_account = User.current_user.bank_accounts.build(bank_account_params)
 
     respond_to do |format|
       if @bank_account.save
-        format.html { redirect_to bank_account_url(@bank_account), notice: "Bank account was successfully created." }
+        format.html { redirect_to root_path, notice: "Bank account was successfully created." }
         format.json { render :show, status: :created, location: @bank_account }
       else
         format.html { render :new, status: :unprocessable_entity }

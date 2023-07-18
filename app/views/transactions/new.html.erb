@@ -1,0 +1,36 @@
+<h1>New transaction</h1>
+
+<%= form_with(model: @transaction) do |form| %>
+  <% if @transaction.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+
+      <ul>
+        <% @transaction.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.collection_select :bank_account_id, @bank_accounts, :id, :name, { prompt: "Select a bank account" }, { class: 'form-select' } %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :amount, style: "display: block" %>
+    <%= form.text_field :amount %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :completed_at, style: "display: block" %>
+    <%= form.datetime_field :completed_at, value: @transaction.completed_at.strftime("%Y-%m-%dT%H:%M") %>
+  </div>
+
+  <%= form.submit 'Create', class: 'btn btn-primary' %>
+<% end %>

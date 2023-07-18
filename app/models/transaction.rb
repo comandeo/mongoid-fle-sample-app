@@ -8,6 +8,13 @@ class Transaction
   field :key_name_field, type: String
 
   validates_presence_of :amount, :description, :completed_at
+  after_initialize :set_defaults
 
-  belongs_to :bank_account
+  embedded_in :bank_account
+
+  private
+
+  def set_defaults
+    self[:completed_at] = Time.zone.now if completed_at.nil?
+  end
 end
