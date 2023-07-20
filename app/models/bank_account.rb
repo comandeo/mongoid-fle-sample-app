@@ -13,7 +13,7 @@ class BankAccount
   validates_presence_of :name, :account_number, :account_type, :bank_name
 
   belongs_to :user
-  embeds_many :transactions
+  has_many :transactions
 
   before_create :set_encryption_key
 

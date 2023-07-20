@@ -19,7 +19,7 @@ class User
 
   include Mongoid::Timestamps
 
-  encrypt_with key_id: 'vHJ0mBF7Qd+J4K9ue4zVhQ=='
+  encrypt_with key_id: 'ZVCeA+EBSe2VB1HdopLQmg=='
 
   field :first_name, type: String, encrypt: { deterministic: false }
   field :last_name, type: String, encrypt: { deterministic: false }
@@ -40,17 +40,16 @@ class User
   end
 
   def self.kms_providers
-    @kms_providers ||= begin
-      auto_encryption_options = Mongoid.clients.dig(client_name, :options, :auto_encryption_options)
-      auto_encryption_options[:kms_providers]
-    end
+    Mongoid.clients.dig(client_name, :options, :auto_encryption_options, :kms_providers)
+  end
+
+  def self.key_vault_namespace
+    Mongoid.clients.dig(client_name, :options, :auto_encryption_options, :key_vault_namespace)
   end
 
   def self.client_encryption
     @client_encryption ||= begin
       key_vault_client = Mongoid.client('key_vault')
-      auto_encryption_options = Mongoid.clients.dig(client_name, :options, :auto_encryption_options)
-      key_vault_namespace = auto_encryption_options[:key_vault_namespace]
       Mongo::ClientEncryption.new(key_vault_client, key_vault_namespace:, kms_providers:)
     end
   end

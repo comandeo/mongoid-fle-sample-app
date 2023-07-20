@@ -1,5 +1,7 @@
 development:
   clients:
+    unencrypted:
+      uri: mongodb+srv://app:<%= ENV['MONGODB_PASSWORD'] %>@cluster0.bdfagvy.mongodb.net/finance_lock_development?retryWrites=true&w=majority
     key_vault:
       # We use the same database for the sake of simplicity, but you should use a different one.
       uri: mongodb+srv://app:<%= ENV['MONGODB_PASSWORD'] %>@cluster0.bdfagvy.mongodb.net/?retryWrites=true&w=majority
