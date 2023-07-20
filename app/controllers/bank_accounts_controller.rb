@@ -1,9 +1,11 @@
 class BankAccountsController < ApplicationController
+  before_action :authenticate_user!
+
   before_action :set_bank_account, only: %i[ show edit update destroy ]
 
   # GET /bank_accounts or /bank_accounts.json
   def index
-    @bank_accounts = User.current_user.bank_accounts
+    @bank_accounts = current_user.bank_accounts
   end
 
   # GET /bank_accounts/1 or /bank_accounts/1.json
@@ -21,7 +23,7 @@ class BankAccountsController < ApplicationController
 
   # POST /bank_accounts or /bank_accounts.json
   def create
-    @bank_account = User.current_user.bank_accounts.build(bank_account_params)
+    @bank_account = current_user.bank_accounts.build(bank_account_params)
 
     respond_to do |format|
       if @bank_account.save

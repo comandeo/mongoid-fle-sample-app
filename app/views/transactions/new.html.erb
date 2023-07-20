@@ -14,7 +14,8 @@
   <% end %>
 
   <div class="mb-3">
-    <%= form.collection_select :bank_account_id, @bank_accounts, :id, :name, { prompt: "Select a bank account" }, { class: 'form-select' } %>
+    <%= form.label :bank_account, style: "display: block" %>
+    <%= form.collection_select :bank_account_id, @bank_accounts, :id, :name, {}, { class: 'form-select' } %>
   </div>
 
   <div class="mb-3">
