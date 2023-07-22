@@ -11,25 +11,27 @@
     </div>
   <% end %>
 
-  <div class="mb-3">
+  <div class="form-group">
     <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: 'form-control' %>
   </div>
 
-  <div class="mb-3">
+  <div class="form-group">
     <%= form.label :account_number, style: "display: block" %>
-    <%= form.text_field :account_number %>
+    <%= form.text_field :account_number, class: 'form-control' %>
   </div>
 
-  <div class="mb-3">
+  <div class="form-group">
     <%= form.label :account_type, style: "display: block" %>
-    <%= form.text_field :account_type %>
+    <%= form.text_field :account_type, class: 'form-control' %>
   </div>
 
-  <div class="mb-3">
+  <div class="form-group">
     <%= form.label :bank_name, style: "display: block" %>
-    <%= form.text_field :bank_name %>
+    <%= form.text_field :bank_name, class: 'form-control' %>
   </div>
 
-  <%= form.submit 'Create', class: "btn btn-primary" %>
+  <div class="form-group">
+    <%= form.submit 'Create', class: "btn btn-primary" %>
+  </div>
 <% end %>
