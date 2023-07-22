@@ -1,22 +1,17 @@
 class BankAccountsController < ApplicationController
   before_action :authenticate_user!
-
   before_action :set_bank_account, only: %i[ show edit update destroy ]
 
-  # GET /bank_accounts or /bank_accounts.json
   def index
     @bank_accounts = current_user.bank_accounts
   end
 
-  # GET /bank_accounts/new
   def new
     @bank_account = BankAccount.new
   end
 
-  # POST /bank_accounts or /bank_accounts.json
   def create
     @bank_account = current_user.bank_accounts.build(bank_account_params)
-
     respond_to do |format|
       if @bank_account.save
         format.html { redirect_to root_path, notice: "Bank account was successfully created." }
@@ -26,22 +21,18 @@ class BankAccountsController < ApplicationController
     end
   end
 
-  # DELETE /bank_accounts/1 or /bank_accounts/1.json
   def destroy
     @bank_account.destroy
-
     respond_to do |format|
       format.html { redirect_to bank_accounts_url, notice: "Bank account was successfully destroyed." }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_bank_account
       @bank_account = BankAccount.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def bank_account_params
       params.require(:bank_account).permit(:name, :account_number, :account_type, :bank_name, :user_id)
     end

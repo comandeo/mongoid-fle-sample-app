@@ -1,7 +1,7 @@
 class TransactionsController < ApplicationController
-
   before_action :authenticate_user!
   before_action :set_bank_account, only: %i[create]
+
   def new
     @transaction = Transaction.new
     @bank_accounts = current_user.bank_accounts.only(:_id, :name)
@@ -17,14 +17,11 @@ class TransactionsController < ApplicationController
     respond_to do |format|
       if @transaction.save
         format.html { redirect_to root_path, notice: 'Transaction was successfully created.' }
-        format.json { render :show, status: :created, location: @transaction }
       else
         @bank_accounts = current_user.bank_accounts.only(:_id, :name)
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end
     end
-
   end
 
   private
